@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel, JSUnresolvedLibraryURL -->
+<html lang="uk" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Дмитрук Олег">
+    <title>Домашнє завдання</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body class="position-relative">
+
+<div class="container mt-5">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#task1" type="button" role="tab"
+                    aria-controls="task1" aria-selected="true">1
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task2" type="button" role="tab"
+                    aria-controls="task2" aria-selected="false">2
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task3" type="button" role="tab"
+                    aria-controls="task3" aria-selected="false">3
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task4" type="button" role="tab"
+                    aria-controls="task4" aria-selected="false">4
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task5" type="button" role="tab"
+                    aria-controls="task5" aria-selected="false">5
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task6" type="button" role="tab"
+                    aria-controls="task6" aria-selected="false">6
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task7" type="button" role="tab"
+                    aria-controls="task7" aria-selected="false">7
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task9" type="button" role="tab"
+                    aria-controls="task9" aria-selected="false">9
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="task1" role="tabpanel">
+            <h3>Підрахувати суму чисел у діапазоні</h3>
+            <input type="number" id="task1input1" class="form-control mb-2" placeholder="Початкове число">
+            <input type="number" id="task1input2" class="form-control mb-2" placeholder="Кінцеве число">
+            <button class="btn btn-primary" onclick="sumInRange()">Submit</button>
+            <div id="task1result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task2" role="tabpanel">
+            <h3>Найбільший спільний дільник</h3>
+            <input type="number" id="task2input1" class="form-control mb-2" placeholder="Перше число">
+            <input type="number" id="task2input2" class="form-control mb-2" placeholder="Друге число">
+            <button class="btn btn-primary" onclick="findGCD()">Submit</button>
+            <div id="task2result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task3" role="tabpanel">
+            <h3>Усі дільники числа</h3>
+            <input type="number" id="task3input" class="form-control mb-2" placeholder="Введіть число">
+            <button class="btn btn-primary" onclick="findDivisors()">Submit</button>
+            <div id="task3result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task4" role="tabpanel">
+            <h3>Кількість цифр у числі</h3>
+            <input type="number" id="task4input" class="form-control mb-2" placeholder="Введіть число">
+            <button class="btn btn-primary" onclick="countDigits()">Submit</button>
+            <div id="task4result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task5" role="tabpanel">
+            <h3>Статистика чисел</h3>
+            <input type="number" id="task5input1" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input2" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input3" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input4" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input5" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input6" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input7" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input8" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input9" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task5input10" class="form-control mb-2" placeholder="Введіть число">
+            <button class="btn btn-primary" onclick="countNumbers()">Submit</button>
+            <div id="task5result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task6" role="tabpanel">
+            <h3>Калькулятор</h3>
+            <input type="text" id="expressionInput" class="form-control mb-2" placeholder="Введіть вираз">
+            <button class="btn btn-primary" onclick="calculate()">Порахувати</button>
+            <div id="task6result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task7" role="tabpanel">
+            <h3>Зсув числа</h3>
+            <input type="number" id="task7input1" class="form-control mb-2" placeholder="Введіть число">
+            <input type="number" id="task7input2" class="form-control mb-2" placeholder="Скільки цифр зсунути">
+            <button class="btn btn-primary" onclick="shiftDigits()">Submit</button>
+            <div id="task7result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task9" role="tabpanel">
+            <h3>Таблиця множення</h3>
+            <button class="btn btn-primary" onclick="multiplicationTable()">Submit</button>
+            <div id="task9result" class="alert mt-2" role="alert"></div>
+        </div>
+    </div>
+</div>
+<div class="container fixed-bottom">
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary border-top pt-2">© 2024 Дмитрук Олег</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+<script>
+    function sumInRange() {
+        let start = parseInt(document.getElementById('task1input1').value);
+        let end = parseInt(document.getElementById('task1input2').value);
+        let sum = 0;
+        for (let i = start; i <= end; i++) {
+            sum += i;
+        }
+        document.getElementById('task1result').innerText = `Сума чисел у діапазоні: ${sum}`;
+    }
+
+    function findGCD() {
+        let a = parseInt(document.getElementById('task2input1').value);
+        let b = parseInt(document.getElementById('task2input2').value);
+        while (b != 0) {
+            let temp = b;
+            b = a % b;
+            a = temp;
+        }
+        document.getElementById('task2result').innerText = `Найбільший спільний дільник: ${a}`;
+    }
+
+    function findDivisors() {
+        let number = parseInt(document.getElementById('task3input').value);
+        let divisors = [];
+        for (let i = 1; i <= number; i++) {
+            if (number % i == 0) {
+                divisors.push(i);
+            }
+        }
+        document.getElementById('task3result').innerText = `Дільники числа: ${divisors.join(', ')}`;
+    }
+
+    function countDigits() {
+        let number = parseInt(document.getElementById('task4input').value);
+        let count = 0;
+        while (number != 0) {
+            number = Math.floor(number / 10);
+            count++;
+        }
+        document.getElementById('task4result').innerText = `Кількість цифр: ${count}`;
+    }
+
+    function countNumbers() {
+        let positiveCount = 0;
+        let negativeCount = 0;
+        let zeroCount = 0;
+        let evenCount = 0;
+        let oddCount = 0;
+        for (let i = 0; i < 10; i++) {
+            let number = parseInt(prompt(`Введіть число #${i + 1}`));
+            if (number > 0) positiveCount++;
+            else if (number < 0) negativeCount++;
+            else zeroCount++;
+            if (number % 2 == 0) evenCount++;
+            else oddCount++;
+        }
+        document.getElementById('task5result').innerText = `
+            Позитивних чисел: ${positiveCount}
+            Негативних чисел: ${negativeCount}
+            Нулів: ${zeroCount}
+            Парних чисел: ${evenCount}
+            Непарних чисел: ${oddCount}
+        `;
+    }
+
+    function calculate() {
+        const expression = document.getElementById('expressionInput').value;
+        const resultElem = document.getElementById('task6result');
+        let result;
+        try {
+            result = eval(expression);
+            resultElem.innerText = `Результат: ${result}`;
+            resultElem.classList.add('alert-success');
+        } catch (error) {
+            resultElem.innerText = `Помилка: ${error.message}`;
+            resultElem.classList.add('alert-danger');
+        }
+    }
+
+    function shiftDigits() {
+        let number = document.getElementById('task7input1').value;
+        let shift = parseInt(document.getElementById('task7input2').value);
+        shift = shift % number.length;
+
+        let shiftedNum = '';
+        for (let i = 0; i < number.length; i++) {
+            let newIndex = (i + shift) % number.length;
+            shiftedNum += number[newIndex];
+        }
+
+        document.getElementById('task7result').innerText = `Результат зсуву: ${shiftedNum}`;
+    }
+
+    function multiplicationTable() {
+        const resultElement = document.getElementById('task9result');
+        let table = '<table class="table table-bordered">';
+        for (let i = 1; i <= 10; i++) {
+            table += '<tr>';
+            for (let j = 2; j <= 9; j++) {
+                table += `<td>${j} x ${i} = ${i * j}</td>`;
+            }
+            table += '</tr>';
+        }
+        table += '</table>';
+        resultElement.className = '';
+        resultElement.innerHTML = table;
+    }
+</script>
+</body>
+</html>
