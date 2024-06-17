@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="uk" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Дмитрук Олег">
+    <title>Домашнє завдання</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body class="position-relative">
+
+<div class="container mt-5">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#task1" type="button" role="tab"
+                    aria-controls="task1" aria-selected="true">1
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task2" type="button" role="tab"
+                    aria-controls="task2" aria-selected="false">2
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task3" type="button" role="tab"
+                    aria-controls="task3" aria-selected="false">3
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task4" type="button" role="tab"
+                    aria-controls="task4" aria-selected="false">4
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task5" type="button" role="tab"
+                    aria-controls="task5" aria-selected="false">5
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task6" type="button" role="tab"
+                    aria-controls="task6" aria-selected="false">6
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task7" type="button" role="tab"
+                    aria-controls="task7" aria-selected="false">7
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task8" type="button" role="tab"
+                    aria-controls="task8" aria-selected="false">8
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task9" type="button" role="tab"
+                    aria-controls="task9" aria-selected="false">9
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#task10" type="button" role="tab"
+                    aria-controls="task10" aria-selected="false">10
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="task1" role="tabpanel">
+            <h3>Порівняти два числа</h3>
+            <input type="number" id="task1input1" class="form-control mb-2" placeholder="Перше число">
+            <input type="number" id="task1input2" class="form-control mb-2" placeholder="Друге число">
+            <button class="btn btn-primary" onclick="compareNumbers()">Підтвердити</button>
+            <div id="task1result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task2" role="tabpanel">
+            <h3>Обчислити факторіал</h3>
+            <input type="number" id="task2input" class="form-control mb-2" placeholder="Введіть число">
+            <button class="btn btn-primary" onclick="calculateFactorial()">Підтвердити</button>
+            <div id="task2result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task3" role="tabpanel">
+            <h3>Об'єднати цифри в число</h3>
+            <input type="number" id="task3input1" class="form-control mb-2" placeholder="Перша цифра">
+            <input type="number" id="task3input2" class="form-control mb-2" placeholder="Друга цифра">
+            <input type="number" id="task3input3" class="form-control mb-2" placeholder="Третя цифра">
+            <button class="btn btn-primary" onclick="concatenateDigits()">Підтвердити</button>
+            <div id="task3result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task4" role="tabpanel">
+            <h3>Площа прямокутника або квадрата</h3>
+            <input type="number" id="task4input1" class="form-control mb-2" placeholder="Довжина">
+            <input type="number" id="task4input2" class="form-control mb-2" placeholder="Ширина (необов'язково)">
+            <button class="btn btn-primary" onclick="calculateArea()">Підтвердити</button>
+            <div id="task4result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task5" role="tabpanel">
+            <h3>Перевірити, чи є число досконалим</h3>
+            <input type="number" id="task5input" class="form-control mb-2" placeholder="Введіть число">
+            <button class="btn btn-primary" onclick="isPerfectNumber()">Підтвердити</button>
+            <div id="task5result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task6" role="tabpanel">
+            <h3>Досконалі числа в діапазоні</h3>
+            <input type="number" id="task6input1" class="form-control mb-2" placeholder="Мінімальне значення">
+            <input type="number" id="task6input2" class="form-control mb-2" placeholder="Максимальне значення">
+            <button class="btn btn-primary" onclick="perfectNumbersInRange()">Підтвердити</button>
+            <div id="task6result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task7" role="tabpanel">
+            <h3>Формат часу</h3>
+            <input type="number" id="task7input1" class="form-control mb-2" placeholder="Години">
+            <input type="number" id="task7input2" class="form-control mb-2" placeholder="Хвилини (необов'язково)">
+            <input type="number" id="task7input3" class="form-control mb-2" placeholder="Секунди (необов'язково)">
+            <button class="btn btn-primary" onclick="formatTime()">Підтвердити</button>
+            <div id="task7result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task8" role="tabpanel">
+            <h3>Конвертувати час у секунди</h3>
+            <input type="time" id="task8time" class="form-control mb-2">
+            <button class="btn btn-primary" onclick="convertTimeToSeconds()">Підтвердити</button>
+            <div id="task8result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task9" role="tabpanel">
+            <h3>Секунди у форматі часу</h3>
+            <input type="number" id="task9input" class="form-control mb-2" placeholder="Кількість секунд">
+            <button class="btn btn-primary" onclick="secondsToTime()">Підтвердити</button>
+            <div id="task9result" class="alert mt-2" role="alert"></div>
+        </div>
+        <div class="tab-pane fade" id="task10" role="tabpanel">
+            <h3>Різниця між датами</h3>
+            <input type="time" id="task10time1" class="form-control mb-2">
+            <input type="time" id="task10time2" class="form-control mb-2">
+            <button class="btn btn-primary" onclick="calculateTimeDifference()">Підтвердити</button>
+            <div id="task10result" class="alert mt-2" role="alert"></div>
+        </div>
+    </div>
+</div>
+<div class="container fixed-bottom">
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary border-top pt-2">© 2024 Дмитрук Олег</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script>
+    function compareNumbers() {
+        const a = parseFloat(document.getElementById('task1input1').value);
+        const b = parseFloat(document.getElementById('task1input2').value);
+        let result;
+        if (a < b) result = -1;
+        else if (a > b) result = 1;
+        else result = 0;
+        document.getElementById('task1result').textContent = `Результат: ${result}`;
+        document.getElementById('task1result').classList.add('alert-primary');
+    }
+
+    function calculateFactorial() {
+        const n = parseInt(document.getElementById('task2input').value);
+        function factorial(x) {
+            if (x === 0 || x === 1) return 1;
+            return x * factorial(x - 1);
+        }
+        const result = factorial(n);
+        document.getElementById('task2result').textContent = `Факторіал: ${result}`;
+        document.getElementById('task2result').classList.add('alert-primary');
+    }
+
+    function concatenateDigits() {
+        const a = parseInt(document.getElementById('task3input1').value);
+        const b = parseInt(document.getElementById('task3input2').value);
+        const c = parseInt(document.getElementById('task3input3').value);
+        const result = parseInt(`${a}${b}${c}`);
+        document.getElementById('task3result').textContent = `Число: ${result}`;
+        document.getElementById('task3result').classList.add('alert-primary');
+    }
+
+    function calculateArea() {
+        const length = parseFloat(document.getElementById('task4input1').value);
+        const width = parseFloat(document.getElementById('task4input2').value) || length;
+        const area = length * width;
+        document.getElementById('task4result').textContent = `Площа: ${area}`;
+        document.getElementById('task4result').classList.add('alert-primary');
+    }
+
+    function isPerfect(num) {
+        let sum = 0;
+        for (let i = 1; i <= num / 2; i++) {
+            if (num % i === 0) sum += i;
+        }
+        return sum === num;
+    }
+    function isPerfectNumber() {
+        const num = parseInt(document.getElementById('task5input').value);
+        const result = isPerfect(num)
+        document.getElementById('task5result').textContent = `Досконале число: ${result}`;
+        document.getElementById('task5result').classList.add('alert-primary');
+    }
+
+    function perfectNumbersInRange() {
+        const min = parseInt(document.getElementById('task6input1').value);
+        const max = parseInt(document.getElementById('task6input2').value);
+        let perfectNumbers = [];
+        for (let i = min; i <= max; i++) {
+            if (isPerfect(i)) perfectNumbers.push(i);
+        }
+        document.getElementById('task6result').textContent = `Досконалі числа: ${perfectNumbers.join(', ')}`;
+        document.getElementById('task6result').classList.add('alert-primary');
+    }
+
+    function formatTime() {
+        const hours = parseInt(document.getElementById('task7input1').value);
+        const minutes = parseInt(document.getElementById('task7input2').value) || 0;
+        const seconds = parseInt(document.getElementById('task7input3').value) || 0;
+        const result = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('task7result').textContent = `Час: ${result}`;
+        document.getElementById('task7result').classList.add('alert-primary');
+    }
+
+    function convertTimeToSeconds() {
+        const time = document.getElementById('task8time').value;
+        const [hours, minutes, seconds] = time.split(':').map(Number);
+        const totalSeconds = (hours * 3600) + (minutes * 60) + (seconds || 0);
+        document.getElementById('task8result').innerText = `Час у секундах: ${totalSeconds}`;
+        document.getElementById('task8result').classList.add('alert-success');
+    }
+
+
+    function secondsToTime() {
+        const totalSeconds = parseInt(document.getElementById('task9input').value);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        const result = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('task9result').textContent = `Час: ${result}`;
+        document.getElementById('task9result').classList.add('alert-primary');
+    }
+
+function calculateTimeDifference() {
+    const time1 = document.getElementById('task10time1').value;
+    const time2 = document.getElementById('task10time2').value;
+
+    const [hours1, minutes1, seconds1] = time1.split(':').map(Number);
+    const [hours2, minutes2, seconds2] = time2.split(':').map(Number);
+
+    const totalSeconds1 = (hours1 * 3600) + (minutes1 * 60) + (seconds1 || 0);
+    const totalSeconds2 = (hours2 * 3600) + (minutes2 * 60) + (seconds2 || 0);
+
+    const diffInSeconds = Math.abs(totalSeconds1 - totalSeconds2);
+    const hours = Math.floor(diffInSeconds / 3600);
+    const minutes = Math.floor((diffInSeconds % 3600) / 60);
+    const seconds = diffInSeconds % 60;
+
+    const formattedDiff = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    document.getElementById('task10result').innerText = `Різниця: ${formattedDiff}`;
+    document.getElementById('task10result').classList.add('alert-success');
+}
+
+</script>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>
