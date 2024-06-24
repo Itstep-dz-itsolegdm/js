@@ -135,7 +135,7 @@
 
     function showMovieDetails(imdbID) {
         let apiKey = 'f13a125f';
-        let apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`;
+        let apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`;
 
         fetch(apiUrl)
             .then(response => response.json())
