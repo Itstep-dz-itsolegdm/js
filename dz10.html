@@ -84,7 +84,7 @@
 
     function searchMovies(searchTerm, searchType) {
         let apiKey = 'f13a125f';
-        let apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}&type=${searchType}&page=${currentPage}`;
+        let apiUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}&type=${searchType}&page=${currentPage}`;
 
         fetch(apiUrl)
             .then(response => response.json())
