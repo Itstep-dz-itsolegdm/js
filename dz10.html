@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Дмитрук Олег">
+    <title>Movie Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .modal-content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Movie Search</h1>
+        <form id="searchForm">
+            <div class="form-group mb-1">
+                <input type="text" class="form-control" id="searchInput" placeholder="Movie title">
+            </div>
+            <div class="form-group">
+                <select class="form-control mb-1" id="typeSelect">
+                    <option value="movie">Movie</option>
+                    <option value="series">Series</option>
+                    <option value="episode">Episode</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="results" class="mt-4"></div>
+        <nav id="paginationNav" aria-label="Movie Results Pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" id="prevPage">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" id="nextPage">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Movie Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
+    </div>
+<div class="container fixed-bottom">
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary border-top pt-2">© 2024 Дмитрук Олег</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let searchTerm = document.getElementById('searchInput').value.trim();
+        let searchType = document.getElementById('typeSelect').value;
+        searchMovies(searchTerm, searchType);
+    });
+
+    let currentPage = 1;
+    const resultsPerPage = 10;
+
+    function searchMovies(searchTerm, searchType) {
+        let apiKey = 'f13a125f';
+        let apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}&type=${searchType}&page=${currentPage}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.Response === 'True') {
+                    displayMovies(data.Search);
+                    setupPagination(data.totalResults);
+                } else {
+                    displayMessage('Movie not found!');
+                    clearResults();
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                displayMessage('Error.');
+                clearResults();
+            });
+    }
+
+    function displayMovies(movies) {
+        let resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+
+        movies.forEach(movie => {
+            let card = `
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="${movie.Poster}" class="card-img" alt="${movie.Title}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">${movie.Title}</h5>
+                                <p class="card-text">${movie.Year} (${movie.Type})</p>
+                                <button class="btn btn-primary" onclick="showMovieDetails('${movie.imdbID}')">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultsDiv.innerHTML += card;
+        });
+    }
+
+    function displayMessage(message) {
+        document.getElementById('results').innerHTML = `<p>${message}</p>`;
+    }
+
+    function showMovieDetails(imdbID) {
+        let apiKey = 'f13a125f';
+        let apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                let modalBody = document.getElementById('modalBody');
+                modalBody.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="${data.Poster}" class="img-fluid" alt="${data.Title} Banner">
+                    </div>
+                    <div class="col-md-8">
+                        <h5>${data.Title}</h5>
+                        <p>${data.Plot}</p>
+                        <p>Director: ${data.Director}</p>
+                        <p>Actors: ${data.Actors}</p>
+                        <p>Genre: ${data.Genre}</p>
+                        <p>Released: ${data.Released}</p>
+                    </div>
+                </div>
+            `;
+                let modal = new bootstrap.Modal(document.getElementById('modal'));
+                modal.show();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    function setupPagination(totalResults) {
+        let paginationNav = document.getElementById('paginationNav');
+        paginationNav.style.display = 'block';
+
+        let prevPage = document.getElementById('prevPage');
+        let nextPage = document.getElementById('nextPage');
+
+        if (currentPage === 1) {
+            prevPage.classList.add('disabled');
+        } else {
+            prevPage.classList.remove('disabled');
+        }
+
+        if (currentPage * 10 >= totalResults) {
+            nextPage.classList.add('disabled');
+        } else {
+            nextPage.classList.remove('disabled');
+        }
+
+        prevPage.onclick = function() {
+            if (currentPage > 1) {
+                currentPage--;
+                searchMovies(document.getElementById('searchInput').value.trim(), document.getElementById('typeSelect').value);
+            }
+        };
+
+        nextPage.onclick = function() {
+            if (currentPage * 10 < totalResults) {
+                currentPage++;
+                searchMovies(document.getElementById('searchInput').value.trim(), document.getElementById('typeSelect').value);
+            }
+        };
+    }
+
+    function clearResults() {
+        document.getElementById('results').innerHTML = '';
+        document.getElementById('paginationNav').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
