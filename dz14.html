@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Дмитрук Олег">
+    <title>Movie Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .modal-content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Movie Search</h1>
+        <form id="searchForm">
+            <div class="form-group mb-1">
+                <input type="text" class="form-control" id="searchInput" placeholder="Movie title">
+            </div>
+            <div class="form-group">
+                <select class="form-control mb-1" id="typeSelect">
+                    <option value="movie">Movie</option>
+                    <option value="tv">Series</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="results" class="mt-4"></div>
+        <nav id="paginationNav" aria-label="Movie Results Pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" id="prevPage">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" id="nextPage">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Movie Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
+    </div>
+<div class="container">
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary border-top pt-2">© 2024 Дмитрук Олег</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let searchTerm = document.getElementById('searchInput').value.trim();
+        let searchType = document.getElementById('typeSelect').value;
+        searchMovies(searchTerm, searchType);
+    });
+
+    let currentPage = 1;
+    const resultsPerPage = 10;
+
+    function searchMovies(searchTerm, searchType) {
+        let apiKey = 'dd6a2eb5001a44604c70531fa06c21e6';
+        let apiUrl = `https://api.themoviedb.org/3/search/${searchType}?api_key=${apiKey}&query=${searchTerm}&page=${currentPage}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results.length > 0) {
+                    displayMovies(data.results, searchType);
+                    setupPagination(data.total_results);
+                } else {
+                    displayMessage('Movie not found!');
+                    clearResults();
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                displayMessage('Error.');
+                clearResults();
+            });
+    }
+
+    function displayMovies(movies, type) {
+        let resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+
+        movies.forEach(movie => {
+            let title = type === 'movie' ? movie.title : movie.name;
+            let releaseDate = type === 'movie' ? movie.release_date : movie.first_air_date;
+            let card = `
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" class="card-img" alt="${title}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">${title}</h5>
+                                <p class="card-text">${releaseDate} (${type})</p>
+                                <button class="btn btn-primary" onclick="showMovieDetails('${movie.id}', '${type}')">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultsDiv.innerHTML += card;
+        });
+    }
+
+    function displayMessage(message) {
+        document.getElementById('results').innerHTML = `<p>${message}</p>`;
+    }
+
+    function showMovieDetails(movieID, type) {
+        let apiKey = 'dd6a2eb5001a44604c70531fa06c21e6';
+        let apiUrl = `https://api.themoviedb.org/3/${type}/${movieID}?api_key=${apiKey}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                let modalBody = document.getElementById('modalBody');
+                modalBody.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" class="img-fluid" alt="${data.title || data.name} Banner">
+                    </div>
+                    <div class="col-md-8">
+                        <h5>${data.title || data.name}</h5>
+                        <p>${data.overview}</p>
+                        <p>Director: ${data.director || 'N/A'}</p>
+                        <p>Actors: ${data.credits ? data.credits.cast.map(actor => actor.name).join(', ') : 'N/A'}</p>
+                        <p>Genre: ${data.genres.map(genre => genre.name).join(', ')}</p>
+                        <p>Released: ${data.release_date || data.first_air_date}</p>
+                    </div>
+                </div>
+            `;
+                let modal = new bootstrap.Modal(document.getElementById('modal'));
+                modal.show();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    function setupPagination(totalResults) {
+        let paginationNav = document.getElementById('paginationNav');
+        paginationNav.style.display = 'block';
+
+        let prevPage = document.getElementById('prevPage');
+        let nextPage = document.getElementById('nextPage');
+
+        if (currentPage === 1) {
+            prevPage.classList.add('disabled');
+        } else {
+            prevPage.classList.remove('disabled');
+        }
+
+        if (currentPage * resultsPerPage >= totalResults) {
+            nextPage.classList.add('disabled');
+        } else {
+            nextPage.classList.remove('disabled');
+        }
+
+        prevPage.onclick = function() {
+            if (currentPage > 1) {
+                currentPage--;
+                searchMovies(document.getElementById('searchInput').value.trim(), document.getElementById('typeSelect').value);
+            }
+        };
+
+        nextPage.onclick = function() {
+            if (currentPage * resultsPerPage < totalResults) {
+                currentPage++;
+                searchMovies(document.getElementById('searchInput').value.trim(), document.getElementById('typeSelect').value);
+            }
+        };
+    }
+
+    function clearResults() {
+        document.getElementById('results').innerHTML = '';
+        document.getElementById('paginationNav').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
