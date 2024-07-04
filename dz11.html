@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <meta name="author" content="Дмитрук Олег">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .weather-block {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+        }
+        .weather-block img {
+            vertical-align: middle;
+        }
+        .weather_pic {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #current-icon {
+            width: 100px;
+            height: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Weather Forecast for <span id="city-name"></span>, <span id="country-name"></span></h1>
+    <div class="weather-block" id="current-weather">
+        <div>
+            <h2>Current Weather</h2>
+            <div class="weather_pic">
+                <img id="current-icon" alt="">
+            </div>
+        </div>
+        <div class="weather-info">
+                    <p><strong>Last Updated:</strong> <span id="last-updated"></span></p>
+        <p><strong>Temperature:</strong> <span id="current-temp"></span> °C</p>
+
+        <p><strong>Wind Speed:</strong> <span id="wind-speed"></span> km/h</p>
+        <p><strong>Precipitation:</strong> <span id="precipitation"></span> mm</p>
+        <p><strong>Pressure:</strong> <span id="pressure"></span> mb</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const apiKey = '8d1246402b8ccc0bcc83b4705b60751a';
+            const city = 'Lutsk';
+
+            fetch(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('city-name').textContent = data.location.name;
+                    document.getElementById('country-name').textContent = data.location.country;
+                    document.getElementById('last-updated').textContent = data.current.observation_time;
+                    document.getElementById('current-temp').textContent = data.current.temperature;
+                    document.getElementById('current-icon').src = data.current.weather_icons[0];
+                    document.getElementById('wind-speed').textContent = data.current.wind_speed;
+                    document.getElementById('precipitation').textContent = data.current.precip;
+                    document.getElementById('pressure').textContent = data.current.pressure;
+                });
+        });
+    // forecast - платно
+
+    </script>
+</body>
+</html>

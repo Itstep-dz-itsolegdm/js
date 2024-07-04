@@ -89,8 +89,9 @@
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                if (data.Response === 'True') {
+                if (data.Response == 'True') {
                     displayMovies(data.Search);
+                    console.log(data)
                     setupPagination(data.totalResults);
                 } else {
                     displayMessage('Movie not found!');
